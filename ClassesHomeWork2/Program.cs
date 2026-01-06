@@ -1,4 +1,6 @@
-﻿namespace ClassesHomeWork2
+﻿using static System.Net.Mime.MediaTypeNames;
+
+namespace ClassesHomeWork2
 {
     internal class Program
     {
@@ -55,6 +57,18 @@
             Book book3 = new Book("Poetry", autorBook2)
             { PagesCount = 125, Publisher = publisher1};
             book3.OpenBook();
+
+            //книжка з малюнками
+            string[] images = { "Sea", "Tree", "Bird", "Sun", "Mountain" };
+            uint[] pagesForImages = [0, 2, 4, 6, 8];
+
+            BookWithImages bookWithImages1 = new BookWithImages("Fairy Tales", autorBook2, images, pagesForImages)
+            {
+                PagesCount = 200,
+                PublicationDate = new DateOnly(2020, 5, 15)
+            };
+
+            bookWithImages1.ShowImages();
         }
     }
 }
