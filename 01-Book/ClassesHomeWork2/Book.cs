@@ -13,7 +13,7 @@ namespace ClassesHomeWork2
 
         public DateOnly PublicationDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
-        public Publisher Publisher { get; set; }
+        public Publisher? Publisher { get; set; }
 
         public Book(string title, AuthorBook author)
         {
