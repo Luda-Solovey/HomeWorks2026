@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using Book;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ClassesHomeWork2
 {
@@ -6,6 +7,21 @@ namespace ClassesHomeWork2
     {
         static void Main()
         {
+            Page[] pages = new Page[12]
+            {
+                new Page(1, "Some text of page 1"),
+                new Page(2, "Some text of page 2"),
+                new Page(3, "Some text of page 3"),
+                new Page(4, "Some text of page 4"),
+                new Page(5, "Some text of page 5"),
+                new Page(6, "Some text of page 6"),
+                new Page(7, "Some text of page 7"),
+                new Page(8, "Some text of page 8"),
+                new Page(9, "Some text of page 9"),
+                new Page(10, "Some text of page 10"),
+                new Page(11, "Some text of page 11"),
+                new Page(12, "Some text of page 12")
+            };
 
             //автори книжок
             var autorBook1 = new AuthorBook("Taras", "Shevchenko")
@@ -43,32 +59,39 @@ namespace ClassesHomeWork2
                 EstablishYear = 1850
             };
 
-
+            //звичайні книжки поки закоментувала, щоб не заважали тестувати книжку з малюнками
             //книжки
-            Book book1 = new Book("Kobzar", autorBook1, publisher1);
-            book1.OpenBook();
-            Console.WriteLine(book1.ToString());
+            //Book book1 = new Book("Kobzar", autorBook1, publisher1)
+            //{ PagesCount = 12 
+            //};
+            //book1.OpenBook();
+            //Console.WriteLine(book1.ToString());
 
-            Book book2 = new Book("programming in C#", autorBook3, publisher2)
-            { PagesCount = 350};
-            book2.OpenBook();
-            Console.WriteLine(book2.ToString());
+            //Book book2 = new Book("programming in C#", autorBook3, publisher2)
+            //{ PagesCount = 350};
+            //book2.OpenBook();
+            //Console.WriteLine(book2.ToString());
 
-            Book book3 = new Book("Poetry", autorBook2)
-            { PagesCount = 125, Publisher = publisher1};
-            book3.OpenBook();
+            //Book book3 = new Book("Poetry", autorBook2)
+            //{ PagesCount = 125, Publisher = publisher1};
+            //book3.OpenBook();
 
             //книжка з малюнками
-            string[] images = { "Sea", "Tree", "Bird", "Sun", "Mountain" };
-            uint[] pagesForImages = [0, 2, 4, 6, 8];
+            string[] images = { "Sea", "Tree", "Bird", "Sun", "Mountain", "Cat" };
+            uint[] pagesForImages = [2, 3, 4, 5, 7, 8];
 
             BookWithImages bookWithImages1 = new BookWithImages("Fairy Tales", autorBook2, images, pagesForImages)
             {
-                PagesCount = 200,
-                PublicationDate = new DateOnly(2020, 5, 15)
+                PagesCount = 12,
+                PublicationDate = new DateOnly(2020, 5, 15),
+                Pages = pages
+
             };
 
-            bookWithImages1.ShowImages();
+            bookWithImages1.OpenBook();
+            while (bookWithImages1.CurrentPage < bookWithImages1.PagesCount)
+
+                bookWithImages1.NextPage(1);
 
             Console.ReadKey();
         }
