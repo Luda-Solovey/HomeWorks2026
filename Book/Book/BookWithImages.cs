@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Book;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -37,12 +38,34 @@ namespace ClassesHomeWork2
         }
 
 
-        public void ShowImages()
+        public void NextPage(uint startedPage)
         {
-            Console.WriteLine($"Book: {Title} Images:");
-            for (int i = 0; i < images.Length; i++)
+            if (CurrentPage < PagesCount)
             {
-                Console.WriteLine($"Page {pagesForImages[i]}: {images[i]}");
+                ShowCurrentPage(CurrentPage);
+                CurrentPage++;
+            }
+            //Console.WriteLine($"Book: {Title} Images:");
+            //for (int i = 0; i < images.Length; i++)
+            //{
+            //    Console.WriteLine($"Page {pagesForImages[i]}: {images[i]}");
+            //}
+        }
+
+        public void ShowCurrentPage(uint currentPage)
+        {
+            Console.WriteLine($"Current Page: {CurrentPage}");
+
+            Console.WriteLine($"Text: {Pages[currentPage - 1].Text};");
+
+            for (int i = 0; i < pagesForImages.Length; i++)
+            {
+                if (pagesForImages[i] == currentPage)
+                {
+                    Console.WriteLine($"Image on Page {currentPage}: {images[i]}");
+
+                    return;
+                }
             }
         }
     }
