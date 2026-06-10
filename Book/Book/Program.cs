@@ -89,10 +89,21 @@ namespace ClassesHomeWork2
             };
 
             bookWithImages1.OpenBook();
-            while (bookWithImages1.CurrentPage < bookWithImages1.PagesCount)
+            bool flag = true;
 
-                bookWithImages1.NextPage(1);
+            while (flag)
+            {
+                Console.WriteLine("What shoud we do next");
+                Console.WriteLine("1-Next page");
+                Console.WriteLine("2-Go to the beggining");
+                Console.WriteLine("3-Exit");
 
+                string answer = Console.ReadLine() ?? string.Empty;
+                // analize answer 
+
+                flag = bookWithImages1.NextPage();
+                bookWithImages1.ShowCurrentPage();
+            }
             Console.ReadKey();
         }
     }

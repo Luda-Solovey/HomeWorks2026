@@ -7,13 +7,14 @@ namespace ClassesHomeWork2
 {
     public class Book
     {
+        protected uint currentPage = 1;
+
         public required Page[] Pages { get; init; }
         public string Title { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
         public AuthorBook Author { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
 
         public required uint PagesCount { get; init; }
-        public uint CurrentPage { get; set; } = 1;
-
+            
         public DateOnly PublicationDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
         public Publisher? Publisher { get; set; }

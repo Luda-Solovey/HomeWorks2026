@@ -38,13 +38,15 @@ namespace ClassesHomeWork2
         }
 
 
-        public void NextPage(uint startedPage)
+        public bool NextPage()
         {
-            if (CurrentPage < PagesCount)
+            if (this.currentPage < PagesCount)
             {
-                ShowCurrentPage(CurrentPage);
-                CurrentPage++;
+                currentPage++;
+                return true;
             }
+
+            return false;
             //Console.WriteLine($"Book: {Title} Images:");
             //for (int i = 0; i < images.Length; i++)
             //{
@@ -52,11 +54,11 @@ namespace ClassesHomeWork2
             //}
         }
 
-        public void ShowCurrentPage(uint currentPage)
+        public void ShowCurrentPage()
         {
-            Console.WriteLine($"Current Page: {CurrentPage}");
+            Console.WriteLine($"Current Page: {currentPage}");
 
-            Console.WriteLine($"Text: {Pages[currentPage - 1].Text};");
+            Console.WriteLine($"Text: {Pages?[currentPage - 1]?.Text};");
 
             for (int i = 0; i < pagesForImages.Length; i++)
             {
@@ -64,9 +66,15 @@ namespace ClassesHomeWork2
                 {
                     Console.WriteLine($"Image on Page {currentPage}: {images[i]}");
 
-                    return;
+                    break;
                 }
             }
+
+        }
+
+        public void Reset()
+        {
+            currentPage = 1;
         }
     }
 }
