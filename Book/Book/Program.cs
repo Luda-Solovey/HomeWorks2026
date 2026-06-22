@@ -7,20 +7,20 @@ namespace ClassesHomeWork2
     {
         static void Main()
         {
-            Page[] pages = new Page[12]
+            Page[] pages = new Page[3]
             {
-                new Page(1, "Some text of page 1"),
-                new Page(2, "Some text of page 2"),
-                new Page(3, "Some text of page 3"),
-                new Page(4, "Some text of page 4"),
-                new Page(5, "Some text of page 5"),
-                new Page(6, "Some text of page 6"),
-                new Page(7, "Some text of page 7"),
-                new Page(8, "Some text of page 8"),
-                new Page(9, "Some text of page 9"),
-                new Page(10, "Some text of page 10"),
-                new Page(11, "Some text of page 11"),
-                new Page(12, "Some text of page 12")
+                new Page(1, "Hello! This is the first paragraph"),
+                new Page(2, "This is the second paragraph"),
+                new Page(3, "This is the last paragraph")
+                //new Page(4, "Some text of page 4"),
+                //new Page(5, "Some text of page 5"),
+                //new Page(6, "Some text of page 6"),
+                //new Page(7, "Some text of page 7"),
+                //new Page(8, "Some text of page 8"),
+                //new Page(9, "Some text of page 9"),
+                //new Page(10, "Some text of page 10"),
+                //new Page(11, "Some text of page 11"),
+                //new Page(12, "Some text of page 12")
             };
 
             //автори книжок
@@ -59,11 +59,36 @@ namespace ClassesHomeWork2
                 EstablishYear = 1850
             };
 
+            Page[] pagesForBook = new Page[]
+        {
+            new Page(1, "Some text for page1"),
+            new Page(2, "Some text for page2"),
+            new Page(3, "Some text for page3")
+        };
             //звичайні книжки поки закоментувала, щоб не заважали тестувати книжку з малюнками
             //книжки
-            //Book book1 = new Book("Kobzar", autorBook1, publisher1)
-            //{ PagesCount = 12 
-            //};
+            Book book1 = new Book("Kobzar", autorBook1, pagesForBook, publisher1)
+            {
+                PagesCount = 12
+            };
+
+            foreach (var page in book1)
+            {
+                Console.WriteLine($"Page number {page.Number}, text - {page.Text}");
+            }
+
+            Console.WriteLine("------------------------------------");
+
+            //це те, що знаходиться "під капотом" foreach-a (тобто, можна і так ітерувати)
+
+            IEnumerator<Page> enumerator = book1.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                var item = enumerator.Current;
+                Console.WriteLine($"While. Page number {item.Number}, text - {item.Text}");
+            }
+
             //book1.OpenBook();
             //Console.WriteLine(book1.ToString());
 
@@ -77,18 +102,18 @@ namespace ClassesHomeWork2
             //book3.OpenBook();
 
             //книжка з малюнками
-            string[] images = { "Sea", "Tree", "Bird", "Sun", "Mountain", "Cat" };
-            uint[] pagesForImages = [2, 3, 4, 5, 7, 8];
+            //string[] images = { "Sea", "Tree", "Bird", "Sun", "Mountain", "Cat" };
+            //uint[] pagesForImages = [2, 3, 4, 5, 7, 8];
 
-            BookWithImages bookWithImages1 = new BookWithImages("Fairy Tales", autorBook2, images, pagesForImages)
-            {
-                PagesCount = 12,
-                PublicationDate = new DateOnly(2020, 5, 15),
-                Pages = pages
+            //BookWithImages bookWithImages1 = new BookWithImages("Fairy Tales", autorBook2, images, pagesForImages)
+            //{
+            //    PagesCount = 12,
+            //    PublicationDate = new DateOnly(2020, 5, 15),
+            //    Pages = pages
 
-            };
+            //};
 
-            bookWithImages1.OpenBook();
+            //bookWithImages1.OpenBook();
             bool flag = true;
 
             while (flag)
@@ -101,10 +126,13 @@ namespace ClassesHomeWork2
                 string answer = Console.ReadLine() ?? string.Empty;
                 // analize answer 
 
-                flag = bookWithImages1.NextPage();
-                bookWithImages1.ShowCurrentPage();
+                //flag = bookWithImages1.NextPage();
+                //bookWithImages1.ShowCurrentPage();
             }
             Console.ReadKey();
+
+            List<string> mlis = new List<string>();
+                 
         }
     }
 }

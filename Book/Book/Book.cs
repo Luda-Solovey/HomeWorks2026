@@ -1,15 +1,18 @@
 ﻿using Book;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ClassesHomeWork2
 {
-    public class Book
+    public class Book : IEnumerable<Page>
     {
-        protected uint currentPage = 1;
 
-        public required Page[] Pages { get; init; }
+        private Page[] pages;
+        //protected uint currentPage = 1;
+
+        public  Page[] Pages { get; set; }
         public string Title { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
         public AuthorBook Author { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
 
@@ -19,7 +22,9 @@ namespace ClassesHomeWork2
 
         public Publisher? Publisher { get; set; }
 
-        public Book(string title, AuthorBook author)
+        
+
+        public Book(string title, AuthorBook author, Page[] bookPages)
         {
             if (author is null)
             {
@@ -33,10 +38,11 @@ namespace ClassesHomeWork2
 
             Title = title;
             Author = author;
+            pages = bookPages;
         }
 
-        public Book(string title, AuthorBook author, Publisher publisher)
-            : this(title, author)
+        public Book(string title, AuthorBook author, Page[] bookPages, Publisher publisher)
+            : this(title, author, bookPages)
         {
 
             Publisher = publisher;
@@ -51,6 +57,16 @@ namespace ClassesHomeWork2
         public override string ToString()
         {
             return $"Title: {Title}, Author: {Author.Name} {Author.SurName}, Publisher: {Publisher.Name}";
+        }
+
+        public IEnumerator<Page> GetEnumerator()
+        {
+            return new PagesEnumerator(pages);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
