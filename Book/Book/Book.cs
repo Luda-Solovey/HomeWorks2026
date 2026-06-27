@@ -1,77 +1,99 @@
 ﻿using Book;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ClassesHomeWork2;
 
-public class Book
+public class Book : IEnumerable<Page>, IEnumerator<Page>
 {
-    protected uint currentPage = 1;
-namespace ClassesHomeWork2
-{
-    public class Book : IEnumerable<Page>
-    {
+    private int position = -1;
 
-        private Page[] pages;
-        //protected uint currentPage = 1;
+    public Page[] Pages { get; }
 
-        public  Page[] Pages { get; set; }
-        public string Title { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
-        public AuthorBook Author { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
+    public string Title { get; } 
+
+    public AuthorBook Author { get; }
 
     public required uint PagesCount { get; init; }
-        
+
     public DateOnly PublicationDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     public Publisher? Publisher { get; set; }
 
-        
+    public Page Current => Pages[position];
 
-        public Book(string title, AuthorBook author, Page[] bookPages)
+    object IEnumerator.Current => Current;
+
+    public Book(string title, AuthorBook author, Page[] bookPages)
+    {
+        if (author is null)
         {
-            if (author is null)
-            {
-                throw new ArgumentException("Author cannot be null or empty.");
-            }
+            throw new ArgumentException("Author cannot be null or empty.");
+        }
 
         if (string.IsNullOrWhiteSpace(title))
         {
             throw new ArgumentException("Title cannot be null or empty.");
         }
 
-            Title = title;
-            Author = author;
-            pages = bookPages;
-        }
+        Title = title;
+        Author = author;
+        Pages = bookPages;
+    }
 
-        public Book(string title, AuthorBook author, Page[] bookPages, Publisher publisher)
-            : this(title, author, bookPages)
-        {
+    public Book(string title, AuthorBook author, Page[] bookPages, Publisher publisher)
+        : this(title, author, bookPages)
+    {
 
         Publisher = publisher;
     }
 
-    public void OpenBook()
+    public void Open()
     {
         Console.WriteLine($"Book: {Title}, author: {Author.Name} {Author.SurName}, pages: {PagesCount}");
+        Reset();
+        MoveNext(); 
     }
 
-        //Override ToString() method for easy display of book information
-        public override string ToString()
+    //Override ToString() method for easy display of book information
+    public override string ToString()
+    {
+        return $"Title: {Title}, Author: {Author.Name} {Author.SurName}, Publisher: {Publisher.Name}";
+    }
+
+    public IEnumerator<Page> GetEnumerator()
+    {
+        return this;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return this;
+    }
+
+    public virtual void ShowCurrentPage()
+    {
+        Console.WriteLine($"Number of Page: {Current.Number}");
+        Console.WriteLine($"Text: {Pages?[position]?.Text};");
+    }
+
+    public void Dispose()
+    {
+        Reset();
+    }
+
+    public bool MoveNext()
+    {
+        if (position < Pages.Length - 1)
         {
-            return $"Title: {Title}, Author: {Author.Name} {Author.SurName}, Publisher: {Publisher.Name}";
+            position++;
+            return true;
         }
 
-        public IEnumerator<Page> GetEnumerator()
-        {
-            return new PagesEnumerator(pages);
-        }
+        return false;
+    }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    public void Reset()
+    {
+        position = -1;
     }
 }

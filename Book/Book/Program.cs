@@ -6,8 +6,8 @@ namespace ClassesHomeWork2
     {
         static void Main()
         {
-            Page[] pages = new Page[3]
-            {
+            Page[] pages =
+            [
                 new Page(1, "Hello! This is the first paragraph"),
                 new Page(2, "This is the second paragraph"),
                 new Page(3, "This is the last paragraph")
@@ -20,7 +20,7 @@ namespace ClassesHomeWork2
                 //new Page(10, "Some text of page 10"),
                 //new Page(11, "Some text of page 11"),
                 //new Page(12, "Some text of page 12")
-            };
+            ];
 
             //автори книжок
             var autorBook1 = new AuthorBook("Taras", "Shevchenko")
@@ -58,12 +58,12 @@ namespace ClassesHomeWork2
                 EstablishYear = 1850
             };
 
-            Page[] pagesForBook = new Page[]
-        {
-            new Page(1, "Some text for page1"),
-            new Page(2, "Some text for page2"),
-            new Page(3, "Some text for page3")
-        };
+            Page[] pagesForBook =
+            [
+                 new Page(1, "Some text for page1"),
+                 new Page(2, "Some text for page2"),
+                 new Page(3, "Some text for page3")
+            ];
             //звичайні книжки поки закоментувала, щоб не заважали тестувати книжку з малюнками
             //книжки
             Book book1 = new Book("Kobzar", autorBook1, pagesForBook, publisher1)
@@ -112,26 +112,46 @@ namespace ClassesHomeWork2
 
             //};
 
-            //bookWithImages1.OpenBook();
+            book1.Open();
             bool flag = true;
 
             while (flag)
             {
-                Console.WriteLine("What shoud we do next");
+                Console.WriteLine("What should we do next");
                 Console.WriteLine("1-Next page");
-                Console.WriteLine("2-Go to the beggining");
+                Console.WriteLine("2-Go to the begging");
                 Console.WriteLine("3-Exit");
 
                 string answer = Console.ReadLine() ?? string.Empty;
-                // analize answer 
 
-                //flag = bookWithImages1.NextPage();
-                //bookWithImages1.ShowCurrentPage();
+                switch (answer)
+                {
+                    case "1":    
+                    {
+                            if (book1.MoveNext())
+                            {
+                                book1.ShowCurrentPage();
+                            }
+                            else
+                            {
+                                Console.WriteLine("It`s end of the book");
+                            }
+                    }
+                    break;
+                    case "2":
+                    {
+                       book1.Open();
+                       book1.ShowCurrentPage();
+                    }
+                    break;
+                    case "3":
+                        flag = false;   
+                        break;
+                }
+             
             }
-            Console.ReadKey();
 
-            List<string> mlis = new List<string>();
-                 
+            Console.ReadKey();
         }
     }
 }
