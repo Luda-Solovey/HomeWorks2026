@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Book;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,11 +7,14 @@ namespace ClassesHomeWork2
 {
     public class Book
     {
+        protected uint currentPage = 1;
+
+        public required Page[] Pages { get; init; }
         public string Title { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
         public AuthorBook Author { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
 
-        public uint PagesCount { get; set; }
-
+        public required uint PagesCount { get; init; }
+            
         public DateOnly PublicationDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
         public Publisher? Publisher { get; set; }
@@ -34,7 +38,7 @@ namespace ClassesHomeWork2
         public Book(string title, AuthorBook author, Publisher publisher)
             : this(title, author)
         {
-           
+
             Publisher = publisher;
         }
 
