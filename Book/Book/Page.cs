@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Book;
 
-namespace Book
+public class Page(uint number, string text)
 {
-    public class Page
-    {
-        public Page(uint number, string text)
-        {
-            Number = number;
-            Text = text;
-        }
-        public string Text { get; } = string.Empty;
-        public uint Number { get; }
-    }
+    public string Text { get; } = text;
+    public uint Number { get; } = number;
 }
