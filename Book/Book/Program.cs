@@ -1,5 +1,4 @@
 ﻿using Book;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ClassesHomeWork2
 {
