@@ -1,80 +1,19 @@
-﻿//using Book;
-//using System;
-//using System.Collections.Generic;
-//using System.Text;
+﻿using Book;
 
-//namespace ClassesHomeWork2
-//{
-//    //новий синтаксис Primary constructor (C# 9.0 and later)
+namespace ClassesHomeWork2;
 
-//    //public class BookWithImages(string title, AuthorBook author, string[] images, string[] pages) : Book(title, author)
-//    //{
-//    //    private string[] images;
+public class BookWithImages(string title, AuthorBook author, PageWithImage[] pages) : Book(title, author, pages)
+{
 
-//    //    private string[] pages;
+    public override void ShowCurrentPage()
+    {
+        base.ShowCurrentPage();
 
-//    //    public string[] Images
-//    //    {
-//    //        get => images;
-//    //        set => images = value ?? Array.Empty<string>();
-//    //    }
-//    //    public string[] Pages
-//    //    {
-//    //        get => pages;
-//    //        set => pages = value ?? Array.Empty<string>();
-//    //    }
-
-//    //}
-
-//    public class BookWithImages : Book
-//    {
-//        private string[] images;
-//        private uint[] pagesForImages;
-//        public BookWithImages(string title, AuthorBook author, string[] images, uint[] pagesForImages)
-//            : base(title, author)
-//        {
-//            this.images = images ?? Array.Empty<string>();
-//            this.pagesForImages = pagesForImages ?? Array.Empty<uint>();
-//        }
-
-
-//        public bool NextPage()
-//        {
-//            if (this.currentPage < PagesCount)
-//            {
-//                currentPage++;
-//                return true;
-//            }
-
-//            return false;
-//            //Console.WriteLine($"Book: {Title} Images:");
-//            //for (int i = 0; i < images.Length; i++)
-//            //{
-//            //    Console.WriteLine($"Page {pagesForImages[i]}: {images[i]}");
-//            //}
-//        }
-
-//        public void ShowCurrentPage()
-//        {
-//            Console.WriteLine($"Current Page: {currentPage}");
-
-//            Console.WriteLine($"Text: {Pages?[currentPage - 1]?.Text};");
-
-//            for (int i = 0; i < pagesForImages.Length; i++)
-//            {
-//                if (pagesForImages[i] == currentPage)
-//                {
-//                    Console.WriteLine($"Image on Page {currentPage}: {images[i]}");
-
-//                    break;
-//                }
-//            }
-
-//        }
-
-//        public void Reset()
-//        {
-//            currentPage = 1;
-//        }
-//    }
-//}
+        PageWithImage? pageWithImage = Current as PageWithImage;
+        if (pageWithImage is not null)
+        {
+            for (int i=0; i<pageWithImage.Image.Length; i++)
+                Console.WriteLine(pageWithImage.Image[i]);
+        }
+    }
+}

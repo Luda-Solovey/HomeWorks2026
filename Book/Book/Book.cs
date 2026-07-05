@@ -1,72 +1,99 @@
 ﻿using Book;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ClassesHomeWork2
+namespace ClassesHomeWork2;
+
+public class Book : IEnumerable<Page>, IEnumerator<Page>
 {
-    public class Book : IEnumerable<Page>
+    private int position = -1;
+
+    public Page[] Pages { get; }
+
+    public string Title { get; } 
+
+    public AuthorBook Author { get; }
+
+    public required uint PagesCount { get; init; }
+
+    public DateOnly PublicationDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+
+    public Publisher? Publisher { get; set; }
+
+    public Page Current => Pages[position];
+
+    object IEnumerator.Current => Current;
+
+    public Book(string title, AuthorBook author, Page[] bookPages)
+    {
+        if (author is null)
+        {
+            throw new ArgumentException("Author cannot be null or empty.");
+        }
+
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            throw new ArgumentException("Title cannot be null or empty.");
+        }
+
+        Title = title;
+        Author = author;
+        Pages = bookPages;
+    }
+
+    public Book(string title, AuthorBook author, Page[] bookPages, Publisher publisher)
+        : this(title, author, bookPages)
     {
 
-        private Page[] pages;
-        //protected uint currentPage = 1;
+        Publisher = publisher;
+    }
 
-        public  Page[] Pages { get; set; }
-        public string Title { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
-        public AuthorBook Author { get; } //для авто-властивості поле оголошувати не треба, - його створить під капотом компілятор
+    public void Open()
+    {
+        Console.WriteLine($"Book: {Title}, author: {Author.Name} {Author.SurName}, pages: {PagesCount}");
+        Reset();
+        MoveNext(); 
+    }
 
-        public required uint PagesCount { get; init; }
-            
-        public DateOnly PublicationDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    //Override ToString() method for easy display of book information
+    public override string ToString()
+    {
+        return $"Title: {Title}, Author: {Author.Name} {Author.SurName}, Publisher: {Publisher.Name}";
+    }
 
-        public Publisher? Publisher { get; set; }
+    public IEnumerator<Page> GetEnumerator()
+    {
+        return this;
+    }
 
-        
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return this;
+    }
 
-        public Book(string title, AuthorBook author, Page[] bookPages)
+    public virtual void ShowCurrentPage()
+    {
+        Console.WriteLine($"Number of Page: {Current.Number}");
+        Console.WriteLine($"Text: {Pages?[position]?.Text};");
+    }
+
+    public void Dispose()
+    {
+        Reset();
+    }
+
+    public bool MoveNext()
+    {
+        if (position < Pages.Length - 1)
         {
-            if (author is null)
-            {
-                throw new ArgumentException("Author cannot be null or empty.");
-            }
-
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new ArgumentException("Title cannot be null or empty.");
-            }
-
-            Title = title;
-            Author = author;
-            pages = bookPages;
+            position++;
+            return true;
         }
 
-        public Book(string title, AuthorBook author, Page[] bookPages, Publisher publisher)
-            : this(title, author, bookPages)
-        {
+        return false;
+    }
 
-            Publisher = publisher;
-        }
-
-        public void OpenBook()
-        {
-            Console.WriteLine($"Book: {Title}, author: {Author.Name} {Author.SurName}, pages: {PagesCount}");
-        }
-
-        //Override ToString() method for easy display of book information
-        public override string ToString()
-        {
-            return $"Title: {Title}, Author: {Author.Name} {Author.SurName}, Publisher: {Publisher.Name}";
-        }
-
-        public IEnumerator<Page> GetEnumerator()
-        {
-            return new PagesEnumerator(pages);
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    public void Reset()
+    {
+        position = -1;
     }
 }
