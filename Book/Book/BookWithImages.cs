@@ -1,38 +1,19 @@
-﻿namespace ClassesHomeWork2;
+﻿using Book;
 
-public class BookWithImages(string title, AuthorBook author, string[] images, uint[] pagesForImages) : Book(title, author)
+namespace ClassesHomeWork2;
+
+public class BookWithImages(string title, AuthorBook author, PageWithImage[] pages) : Book(title, author, pages)
 {
-    public string[] Images { get; } = images ?? [];
-    public uint[] PagesForImages = pagesForImages ?? [];
-
-    public bool NextPage()
-    {
-        if (this.currentPage < PagesCount)
-        {
-            currentPage++;
-            return true;
-        }
-
-        return false;
-    }
-
-    public void Reset()
-    {
-        currentPage = 1;
-    }
 
     public override void ShowCurrentPage()
     {
         base.ShowCurrentPage();
 
-        for (int i = 0; i < pagesForImages.Length; i++)
+        PageWithImage? pageWithImage = Current as PageWithImage;
+        if (pageWithImage is not null)
         {
-            if (pagesForImages[i] == currentPage)
-            {
-                Console.WriteLine($"Image on Page {currentPage}: {images[i]}");
-
-                break;
-            }
+            for (int i=0; i<pageWithImage.Image.Length; i++)
+                Console.WriteLine(pageWithImage.Image[i]);
         }
     }
 }
