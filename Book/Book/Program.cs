@@ -11,15 +11,6 @@ namespace ClassesHomeWork2
                 new Page(1, "Hello! This is the first paragraph"),
                 new Page(2, "This is the second paragraph"),
                 new Page(3, "This is the last paragraph")
-                //new Page(4, "Some text of page 4"),
-                //new Page(5, "Some text of page 5"),
-                //new Page(6, "Some text of page 6"),
-                //new Page(7, "Some text of page 7"),
-                //new Page(8, "Some text of page 8"),
-                //new Page(9, "Some text of page 9"),
-                //new Page(10, "Some text of page 10"),
-                //new Page(11, "Some text of page 11"),
-                //new Page(12, "Some text of page 12")
             ];
 
             //автори книжок

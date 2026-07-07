@@ -4,7 +4,7 @@ using System.Text;
 
 namespace YieldReturnHw
 {
-    public static class MyClass
+    public static class EnumerableExtensions
     {
         public static IEnumerable<string> GetEqualWords(this IEnumerable<string> source1, IEnumerable<string> source2)
         {
