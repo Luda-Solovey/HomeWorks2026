@@ -6,6 +6,17 @@ namespace ClassesHomeWork2
     {
         static void Main()
         {
+            string[] book = {
+            "This is the first line.",
+            "Here we have some text.",
+            "Another line with text.",
+            "Final line." };
+
+                FindAndReplaceManager.FindNext(book, "text"); // знайде на рядку 1
+                FindAndReplaceManager.FindNext(book, "text"); // знайде на рядку 2
+                FindAndReplaceManager.FindNext(book, "text"); // більше немає
+
+
             Page[] pages =
             [
                 new Page(1, "Hello! This is the first paragraph"),
