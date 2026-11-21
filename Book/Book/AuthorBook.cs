@@ -1,19 +1,12 @@
 ﻿namespace ClassesHomeWork2;
 
-public class AuthorBook
+public class AuthorBook(string name, string surName)
 {
-    public string Name { get; }
+    public string Name { get; } = name;
 
-    public string SurName { get; }
+    public string SurName { get; } = surName;
 
-    public required DateOnly BirthDate { get; init; } //тут поле помічене як required для прикладу використання required
+    public required DateOnly BirthDate { get; init; } 
 
-    public List<Book> Books { get; set; } 
-
-    public AuthorBook(string name, string surName)
-    { 
-        Name = name;
-        SurName = surName;
-        Books = new List<Book>();
-    }
+    public List<Book> Books { get; set; } = new List<Book>();
 }
