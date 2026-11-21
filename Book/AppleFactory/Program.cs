@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-
+            AppleFactory.JuiceMaker juiceMaker = new AppleFactory.JuiceMaker();
         }
     }
 }

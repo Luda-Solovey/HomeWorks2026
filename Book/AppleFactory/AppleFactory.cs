@@ -1,38 +1,24 @@
-﻿namespace AppleFactory
+﻿using System.Drawing;
+
+namespace AppleFactory
 {
-    public static class AppleFactory
+    static class AppleFactory
     {
+        public static int AppleCount { get; private set; }
+
         public static int MakeJuice(int appleKillogrames)
         {
-            var litersOfJuice = new JuiceMaker();
-            return litersOfJuice.Make(appleKillogrames);
+            JuiceMaker juiceMaker = new();
+            var juiceValue = juiceMaker.Make(appleKillogrames);
+
+            return juiceValue;
         }
 
-        public class JuiceMaker
+        public static int MakePure(int appleKillogrames)
         {
-            public int Model { get; private set; }
-
-            JuiceMaker()
-            {
-                Model = 1;
-            }
-
-            public int Make(int appleKillogrames)
-            {
-                switch (Model)
-                {
-                    case 1:
-                        var juiceValue = appleKillogrames * 2;
-                        return juiceValue;
-                    case 2:
-                        var juiceValue1 = appleKillogrames * 3;
-                        return juiceValue1;
-
-                    default:
-                        var juiceValue2 = appleKillogrames * 4;
-                        return juiceValue2;
-                }
-            }
+            PureMaker pureMaker = new PureMaker();
+            var pureValue = pureMaker.Make(appleKillogrames);
+            return pureValue;
         }
 
         private class PureMaker
@@ -60,6 +46,35 @@
                 }
             }
         }
+
+        private class JuiceMaker
+        {
+            public  int Model { get; private set; }
+            public JuiceMaker()
+            {
+                Model = 1;
+            }
+
+            public int Make(int appleKillogrames)
+            {
+
+                switch (Model)
+                {
+                    case 1:
+                        var juiceValue = appleKillogrames * 2;
+                        return juiceValue;
+                    case 2:
+                        var juiceValue1 = appleKillogrames * 3;
+                        return juiceValue1;
+
+                    default:
+                        var juiceValue2 = appleKillogrames * 4;
+                        return juiceValue2;
+                }
+            }
+        }
+
+        
 
     }
 }
