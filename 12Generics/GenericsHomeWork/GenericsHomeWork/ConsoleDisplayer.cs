@@ -1,6 +1,6 @@
 ﻿namespace GenericsHomeWork
 {
-    public class ConsoleDisplayer
+    public static class ConsoleDisplayer
     {
         public static string Concat<A, B>(A a, B b, char symbol)
         {
